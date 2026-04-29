@@ -1,0 +1,21 @@
+CHECKLIST DE REQUISITOS DEL PROYECTO
+
+[ ] El proyecto tiene una estructura organizada.
+[ ] El formulario solicita nombre completo.
+[ ] El formulario solicita correo electronico.
+[ ] El formulario solicita edad.
+[ ] El formulario solicita numero de contacto.
+[ ] El formulario permite seleccionar un taller.
+[ ] El formulario incluye una observacion opcional.
+[ ] El sistema valida que el nombre no este vacio.
+[ ] El sistema valida que el correo tenga formato correcto.
+[ ] El sistema valida que la edad sea mayor o igual a 12 anos.
+[ ] El sistema valida que el telefono tenga exactamente 10 digitos.
+[ ] El sistema valida que se seleccione un taller.
+[ ] El sistema muestra mensajes de error claros.
+[ ] El sistema muestra mensaje de confirmacion.
+[ ] El sistema guarda datos en SQLite.
+[ ] El sistema muestra la lista de inscripciones guardadas.
+[ ] El sistema permite eliminar inscripciones.
+[ ] El estudiante entrega capturas de prueba.
+[ ] El estudiante explica el funcionamiento del codigo.

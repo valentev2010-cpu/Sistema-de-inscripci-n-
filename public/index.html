@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!-- La linea anterior indica que este documento usa HTML5, la version moderna de HTML. -->
+<html lang="es">
+<!-- La etiqueta html envuelve todo el contenido de la pagina. lang="es" indica que el idioma principal es espanol. -->
+<head>
+    <!-- head contiene informacion tecnica que el navegador necesita, pero que no se muestra directamente en la pagina. -->
+    <meta charset="UTF-8">
+    <!-- charset="UTF-8" permite usar correctamente caracteres como tildes, enes y signos especiales. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- viewport hace que la pagina se adapte mejor a celulares, tabletas y computadores. -->
+    <title>Sistema de Inscripcion a Talleres</title>
+    <!-- title define el texto que aparece en la pestana del navegador. -->
+    <link rel="stylesheet" href="estilos.css">
+    <!-- link conecta este HTML con el archivo estilos.css, que contiene el diseno visual. -->
+</head>
+<body>
+    <!-- body contiene todo lo que el usuario ve en la pagina web. -->
+
+    <main class="contenedor-principal">
+        <!-- main representa el contenido principal de la pagina. La clase permite aplicar estilos desde CSS. -->
+
+        <section class="tarjeta formulario-tarjeta">
+            <!-- section agrupa una parte de la pagina. Esta seccion contiene el formulario. -->
+
+            <h1>Inscripcion a Talleres Comunitarios</h1>
+            <!-- h1 es el titulo principal de la pagina. Solo debe existir un titulo principal por vista. -->
+
+            <p class="descripcion">
+                Registra una persona interesada en participar en los talleres. El sistema validara los datos y los guardara en una base de datos SQLite.
+            </p>
+            <!-- p crea un parrafo descriptivo para explicar al usuario que hace el formulario. -->
+
+            <div id="mensajeGeneral" class="mensaje oculto"></div>
+            <!-- Este div mostrara mensajes generales de error o confirmacion. Empieza oculto hasta que JavaScript lo necesite. -->
+
+            <form id="formularioInscripcion" novalidate>
+                <!-- form agrupa los campos que el usuario debe llenar. El id permite que JavaScript lo encuentre. -->
+                <!-- novalidate desactiva la validacion automatica del navegador para que podamos controlar los mensajes con JavaScript. -->
+
+                <label for="nombre">Nombre completo</label>
+                <!-- label es la etiqueta visible del campo. for="nombre" la conecta con el input que tiene id="nombre". -->
+                <input type="text" id="nombre" placeholder="Ej: Maria Gomez">
+                <!-- input type="text" permite escribir texto. id="nombre" sera usado por JavaScript para capturar este dato. -->
+                <small id="errorNombre" class="error"></small>
+                <!-- small mostrara el mensaje de error especifico para el nombre. -->
+
+                <label for="correo">Correo electronico</label>
+                <!-- Esta etiqueta indica que el siguiente campo espera un correo electronico. -->
+                <input type="email" id="correo" placeholder="Ej: maria@gmail.com">
+                <!-- type="email" indica que el campo corresponde a un correo. JavaScript tambien validara su formato. -->
+                <small id="errorCorreo" class="error"></small>
+                <!-- Aqui se mostraran errores relacionados con el correo. -->
+
+                <label for="edad">Edad</label>
+                <!-- Esta etiqueta identifica el campo edad. -->
+                <input type="number" id="edad" placeholder="Ej: 16">
+                <!-- type="number" permite escribir valores numericos. -->
+                <small id="errorEdad" class="error"></small>
+                <!-- Aqui se mostraran errores relacionados con la edad. -->
+
+                <label for="telefono">Numero de contacto</label>
+                <!-- Esta etiqueta identifica el campo telefono. -->
+                <input type="text" id="telefono" placeholder="Ej: 3001234567" maxlength="10">
+                <!-- maxlength="10" limita visualmente el campo a 10 caracteres, aunque tambien validaremos con JavaScript. -->
+                <small id="errorTelefono" class="error"></small>
+                <!-- Aqui se mostraran errores relacionados con el telefono. -->
+
+                <label for="taller">Taller de interes</label>
+                <!-- Esta etiqueta identifica el campo de seleccion del taller. -->
+                <select id="taller">
+                    <!-- select crea una lista desplegable de opciones. -->
+                    <option value="">Selecciona una opcion</option>
+                    <!-- Esta opcion vacia obliga al usuario a elegir un taller real. -->
+                    <option value="Agricultura sostenible">Agricultura sostenible</option>
+                    <!-- Opcion disponible para el usuario. -->
+                    <option value="Tecnologia basica">Tecnologia basica</option>
+                    <!-- Opcion disponible para el usuario. -->
+                    <option value="Emprendimiento rural">Emprendimiento rural</option>
+                    <!-- Opcion disponible para el usuario. -->
+                    <option value="Programacion web inicial">Programacion web inicial</option>
+                    <!-- Opcion disponible para el usuario. -->
+                </select>
+                <!-- Fin de la lista desplegable. -->
+                <small id="errorTaller" class="error"></small>
+                <!-- Aqui se mostraran errores si el usuario no selecciona un taller. -->
+
+                <label for="observacion">Observacion</label>
+                <!-- Esta etiqueta identifica el campo de observacion. -->
+                <textarea id="observacion" placeholder="Escribe una observacion opcional"></textarea>
+                <!-- textarea permite escribir textos mas largos que un input normal. -->
+
+                <button type="submit">Guardar inscripcion</button>
+                <!-- type="submit" indica que este boton intenta enviar el formulario. JavaScript controlara ese envio. -->
+            </form>
+            <!-- Fin del formulario. -->
+        </section>
+        <!-- Fin de la tarjeta del formulario. -->
+
+        <section class="tarjeta lista-tarjeta">
+            <!-- Esta seccion mostrara las inscripciones guardadas en la base de datos. -->
+
+            <div class="encabezado-lista">
+                <!-- Este div agrupa el titulo de la lista y permite organizarlo visualmente. -->
+                <h2>Inscripciones registradas</h2>
+                <!-- h2 es un subtitulo de la pagina. -->
+            </div>
+            <!-- Fin del encabezado de la lista. -->
+
+            <div id="listaInscripciones" class="lista-inscripciones"></div>
+            <!-- Este contenedor sera llenado dinamicamente por JavaScript con los registros de la base de datos. -->
+        </section>
+        <!-- Fin de la tarjeta de lista. -->
+    </main>
+    <!-- Fin del contenido principal. -->
+
+    <script src="script.js"></script>
+    <!-- script conecta el HTML con el archivo JavaScript. Se pone al final para que el HTML cargue primero. -->
+</body>
+</html>

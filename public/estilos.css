@@ -1,0 +1,245 @@
+/*
+================================================================================
+ARCHIVO: estilos.css
+FUNCION GENERAL:
+Este archivo define el diseno visual del sistema.
+Cada bloque esta comentado para explicar que parte de la pagina modifica.
+================================================================================
+*/
+
+* {
+    /* El selector universal aplica estas reglas a todos los elementos de la pagina. */
+    box-sizing: border-box;
+    /* box-sizing evita que padding y border aumenten el tamano final de los elementos. */
+}
+
+body {
+    /* body representa toda la parte visible de la pagina. */
+    margin: 0;
+    /* margin: 0 elimina el margen por defecto del navegador. */
+    font-family: Arial, Helvetica, sans-serif;
+    /* font-family define el tipo de letra principal. */
+    background: #eef3f8;
+    /* background define el color de fondo general. */
+    color: #1f2937;
+    /* color define el color principal del texto. */
+}
+
+.contenedor-principal {
+    /* Esta clase organiza las dos tarjetas principales de la pagina. */
+    width: min(1100px, 94%);
+    /* width limita el ancho maximo a 1100px, pero permite que en pantallas pequenas use el 94%. */
+    margin: 30px auto;
+    /* margin centra el contenedor horizontalmente y agrega espacio arriba y abajo. */
+    display: grid;
+    /* grid permite organizar el formulario y la lista en columnas. */
+    grid-template-columns: 1fr 1fr;
+    /* Crea dos columnas del mismo tamano. */
+    gap: 24px;
+    /* gap agrega espacio entre las columnas. */
+}
+
+.tarjeta {
+    /* tarjeta es el estilo general para los bloques principales. */
+    background: #ffffff;
+    /* Fondo blanco para separar el contenido del fondo general. */
+    border-radius: 18px;
+    /* Bordes redondeados para un diseno mas moderno. */
+    padding: 24px;
+    /* Espacio interno para que el contenido no quede pegado a los bordes. */
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+    /* Sombra suave para dar profundidad visual. */
+}
+
+h1, h2 {
+    /* Este bloque aplica a los titulos h1 y h2. */
+    margin-top: 0;
+    /* Quita el margen superior por defecto. */
+    color: #0f172a;
+    /* Color oscuro para mejorar la lectura de los titulos. */
+}
+
+.descripcion {
+    /* Esta clase aplica al parrafo introductorio del formulario. */
+    line-height: 1.5;
+    /* line-height mejora la separacion entre lineas. */
+    color: #4b5563;
+    /* Color gris para texto secundario. */
+}
+
+form {
+    /* Este bloque modifica el formulario completo. */
+    display: flex;
+    /* flex permite organizar los campos en columna. */
+    flex-direction: column;
+    /* column indica que los elementos se ubican uno debajo del otro. */
+    gap: 8px;
+    /* gap agrega espacio entre los elementos del formulario. */
+}
+
+label {
+    /* label modifica los textos que describen cada campo. */
+    font-weight: bold;
+    /* font-weight: bold pone el texto en negrita. */
+    margin-top: 8px;
+    /* Agrega espacio antes de cada etiqueta. */
+}
+
+input, select, textarea {
+    /* Este bloque aplica el mismo diseno a inputs, selects y textarea. */
+    width: 100%;
+    /* width: 100% hace que los campos ocupen todo el ancho disponible. */
+    padding: 12px;
+    /* padding agrega espacio interno para que el texto sea comodo de leer. */
+    border: 1px solid #cbd5e1;
+    /* border crea un borde suave alrededor de los campos. */
+    border-radius: 10px;
+    /* border-radius redondea los bordes de los campos. */
+    font-size: 15px;
+    /* font-size define el tamano del texto dentro de los campos. */
+}
+
+textarea {
+    /* Este bloque solo modifica el campo de observacion. */
+    min-height: 90px;
+    /* min-height define una altura minima para escribir textos largos. */
+    resize: vertical;
+    /* resize: vertical permite cambiar la altura, pero no el ancho. */
+}
+
+input:focus, select:focus, textarea:focus {
+    /* :focus aplica estilos cuando el usuario hace clic o escribe en un campo. */
+    outline: none;
+    /* outline elimina el borde automatico del navegador. */
+    border-color: #2563eb;
+    /* Cambia el borde a azul para indicar que el campo esta activo. */
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    /* Agrega una sombra azul suave alrededor del campo activo. */
+}
+
+button {
+    /* Este bloque modifica el boton principal del formulario. */
+    margin-top: 14px;
+    /* Agrega espacio arriba del boton. */
+    padding: 13px;
+    /* Da espacio interno al boton para hacerlo mas comodo. */
+    border: none;
+    /* Elimina el borde por defecto del boton. */
+    border-radius: 12px;
+    /* Redondea las esquinas del boton. */
+    background: #2563eb;
+    /* Define el color de fondo del boton. */
+    color: #ffffff;
+    /* Define el color del texto del boton. */
+    font-weight: bold;
+    /* Pone el texto del boton en negrita. */
+    cursor: pointer;
+    /* Cambia el cursor para indicar que el boton se puede presionar. */
+}
+
+button:hover {
+    /* :hover aplica estilos cuando el usuario pasa el mouse sobre el boton. */
+    background: #1d4ed8;
+    /* Oscurece el boton para dar retroalimentacion visual. */
+}
+
+.error {
+    /* Esta clase muestra errores debajo de cada campo. */
+    min-height: 18px;
+    /* Reserva espacio para evitar que el formulario salte cuando aparece un error. */
+    color: #dc2626;
+    /* Rojo para indicar error. */
+    font-size: 13px;
+    /* Texto mas pequeno para los mensajes de ayuda. */
+}
+
+.mensaje {
+    /* Esta clase aplica al mensaje general de exito o error. */
+    padding: 12px;
+    /* Espacio interno del mensaje. */
+    border-radius: 10px;
+    /* Bordes redondeados. */
+    margin-bottom: 14px;
+    /* Espacio debajo del mensaje. */
+    font-weight: bold;
+    /* Texto en negrita para que sea visible. */
+}
+
+.oculto {
+    /* Esta clase oculta un elemento cuando no debe verse. */
+    display: none;
+    /* display: none retira el elemento de la pantalla. */
+}
+
+.exito {
+    /* Esta clase se aplica cuando el mensaje es positivo. */
+    background: #dcfce7;
+    /* Fondo verde claro. */
+    color: #166534;
+    /* Texto verde oscuro. */
+}
+
+.fallo {
+    /* Esta clase se aplica cuando el mensaje es de error. */
+    background: #fee2e2;
+    /* Fondo rojo claro. */
+    color: #991b1b;
+    /* Texto rojo oscuro. */
+}
+
+.lista-inscripciones {
+    /* Esta clase organiza la zona donde aparecen los registros. */
+    display: flex;
+    /* flex permite ordenar las tarjetas de registros. */
+    flex-direction: column;
+    /* Los registros aparecen uno debajo del otro. */
+    gap: 12px;
+    /* Espacio entre registros. */
+}
+
+.registro {
+    /* Esta clase aplica a cada inscripcion mostrada en pantalla. */
+    border: 1px solid #e5e7eb;
+    /* Borde suave para separar registros. */
+    border-radius: 14px;
+    /* Bordes redondeados. */
+    padding: 14px;
+    /* Espacio interno de cada registro. */
+    background: #f8fafc;
+    /* Fondo suave para diferenciarlo de la tarjeta principal. */
+}
+
+.registro h3 {
+    /* Este bloque modifica el nombre de cada persona registrada. */
+    margin: 0 0 8px 0;
+    /* Ajusta los espacios del titulo del registro. */
+}
+
+.registro p {
+    /* Este bloque modifica los parrafos dentro de cada registro. */
+    margin: 4px 0;
+    /* Reduce el espacio vertical entre datos. */
+}
+
+.boton-eliminar {
+    /* Esta clase modifica el boton para eliminar registros. */
+    background: #dc2626;
+    /* Fondo rojo para indicar una accion de eliminacion. */
+    margin-top: 10px;
+    /* Espacio arriba del boton. */
+}
+
+.boton-eliminar:hover {
+    /* :hover para el boton de eliminar. */
+    background: #b91c1c;
+    /* Rojo mas oscuro al pasar el mouse. */
+}
+
+@media (max-width: 800px) {
+    /* media query aplica estilos especiales en pantallas pequenas. */
+    .contenedor-principal {
+        /* Modifica el contenedor principal en celulares o pantallas estrechas. */
+        grid-template-columns: 1fr;
+        /* Cambia de dos columnas a una sola columna. */
+    }
+}
