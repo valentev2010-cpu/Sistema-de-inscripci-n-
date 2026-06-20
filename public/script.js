@@ -112,6 +112,28 @@ function mostrarMensaje(texto, tipo) {
 
 /*
 ================================================================================
+FUNCION: parseJsonResponse
+OBJETIVO:
+Intentar convertir la respuesta del servidor a JSON.
+Si el cuerpo no es JSON, lanzar un error con el texto devuelto.
+================================================================================
+*/
+async function parseJsonResponse(respuesta) {
+    const texto = await respuesta.text();
+
+    if (!texto) {
+        return null;
+    }
+
+    try {
+        return JSON.parse(texto);
+    } catch (error) {
+        throw new Error(`Respuesta no valida del servidor: ${texto}`);
+    }
+}
+
+/*
+================================================================================
 FUNCION: validarFormulario
 OBJETIVO:
 Revisar que los datos ingresados cumplan las reglas del proyecto.
@@ -267,14 +289,15 @@ async function cargarInscripciones() {
         // fetch hace una peticion HTTP al backend para obtener los registros.
         const respuesta = await fetch(API_URL);
 
-        // Convertimos la respuesta del backend a formato JSON.
-        const inscripciones = await respuesta.json();
+        // Convertimos la respuesta del backend a formato JSON o texto valido.
+        const inscripciones = await parseJsonResponse(respuesta);
 
         // Llamamos a la funcion que dibuja los registros en la pagina.
-        mostrarInscripciones(inscripciones);
+        mostrarInscripciones(Array.isArray(inscripciones) ? inscripciones : []);
     } catch (error) {
         // Si ocurre un error de conexion, mostramos un mensaje en la lista.
-        listaInscripciones.innerHTML = "<p>No fue posible cargar las inscripciones.</p>";
+        console.error('Error cargando inscripciones:', error);
+        listaInscripciones.innerHTML = "<p>No fue posible conectar con el servidor: " + (error.message || error) + "</p>";
     }
 }
 
@@ -346,12 +369,12 @@ async function eliminarInscripcion(id) {
         });
 
         // Convertimos la respuesta del backend a JSON.
-        const resultado = await respuesta.json();
+        const resultado = await parseJsonResponse(respuesta);
 
         // Revisamos si el backend respondio con error.
         if (!respuesta.ok) {
-            // Si hubo error, mostramos el mensaje enviado por el backend.
-            mostrarMensaje(resultado.mensaje, "fallo");
+            // Si hubo error, mostramos el mensaje enviado por el servidor.
+            mostrarMensaje(resultado && resultado.mensaje ? resultado.mensaje : "Error en la respuesta del servidor.", "fallo");
 
             // Terminamos la funcion porque no se elimino correctamente.
             return;
@@ -364,7 +387,8 @@ async function eliminarInscripcion(id) {
         cargarInscripciones();
     } catch (error) {
         // Si hubo un problema de conexion, mostramos un mensaje de error.
-        mostrarMensaje("No fue posible eliminar la inscripcion.", "fallo");
+        console.error('Error eliminando inscripcion:', error);
+        mostrarMensaje("No fue posible eliminar la inscripcion: " + (error.message || error), "fallo");
     }
 }
 
@@ -411,19 +435,19 @@ formulario.addEventListener("submit", async function (evento) {
         });
 
         // Convertimos la respuesta del backend a JSON para poder leer el mensaje.
-        const resultado = await respuesta.json();
+        const resultado = await parseJsonResponse(respuesta);
 
         // Revisamos si el backend respondio con error.
         if (!respuesta.ok) {
-            // Si hubo error, mostramos el mensaje enviado por el servidor.
-            mostrarMensaje(resultado.mensaje, "fallo");
+            // Si hubo error, mostramos el mensaje enviado por el backend.
+            mostrarMensaje(resultado && resultado.mensaje ? resultado.mensaje : "Error en la respuesta del servidor.", "fallo");
 
             // Detenemos la funcion porque no se guardo correctamente.
             return;
         }
 
         // Mostramos mensaje de confirmacion cuando la inscripcion se guarda correctamente.
-        mostrarMensaje(resultado.mensaje, "exito");
+        mostrarMensaje(resultado && resultado.mensaje ? resultado.mensaje : "Inscripcion guardada correctamente.", "exito");
 
         // Limpiamos los campos del formulario para permitir registrar otra persona.
         formulario.reset();
@@ -432,10 +456,17 @@ formulario.addEventListener("submit", async function (evento) {
         cargarInscripciones();
     } catch (error) {
         // Si no hay conexion con el servidor o ocurre otro problema, mostramos un error general.
-        mostrarMensaje("No fue posible conectar con el servidor.", "fallo");
+        console.error('Error enviando inscripcion:', error);
+        mostrarMensaje("No fue posible conectar con el servidor: " + (error.message || error), "fallo");
     }
 });
 
 // Cuando el navegador carga este archivo, llamamos a cargarInscripciones.
 // Esto permite mostrar automaticamente los registros guardados al abrir la pagina.
 cargarInscripciones();
+
+// Si el HTML se abre directamente desde el sistema de archivos, informar al usuario
+if (window.location.protocol === 'file:') {
+    console.warn('Página abierta desde file:// — las peticiones fetch fallarán.');
+    mostrarMensaje('Abre la aplicación desde http://localhost:3000 (inicia el servidor con `npm start`).', 'fallo');
+}
